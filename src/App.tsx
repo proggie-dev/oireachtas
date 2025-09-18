@@ -1,7 +1,6 @@
+import AppContainer from './ui/index';
 import './App.css';
 
-function App() {
-  return <></>;
-}
+const App = () => <AppContainer />;
 
 export default App;
