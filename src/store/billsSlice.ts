@@ -24,8 +24,11 @@ const initialState: BillsState = {
   error: null,
 };
 
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
+const version = import.meta.env.VITE_API_VERSION;
+
 export const fetchBills = createAsyncThunk('bills/fetchBills', async (params: string) => {
-  const response = await fetch(`https://api.oireachtas.ie/v1/legislation${params}`);
+  const response = await fetch(`${baseUrl}/${version}/legislation${params}`);
   if (!response.ok) {
     throw new Error(`HTTP error! Status: ${response.status}`);
   }
