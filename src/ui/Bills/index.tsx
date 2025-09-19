@@ -1,12 +1,12 @@
 import { Grid, TextField, useMediaQuery } from '@mui/material';
-import BillsTable from './BillsTable';
+import BillsTable from './Table';
 
 const BillsContainer = () => {
   const matches = useMediaQuery('(max-width:667px)');
 
   return (
     <>
-      <Grid display="flex" justifyContent="flex-end" mt={1} mb={4}>
+      <Grid display="flex" justifyContent="flex-end" mt={4} mb={4}>
         <TextField
           id="basic-input"
           label="Filter by bill type..."

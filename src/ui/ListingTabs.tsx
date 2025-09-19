@@ -1,57 +1,32 @@
-import * as React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Box, Tab, Tabs } from '@mui/material';
-import BillsContainer from './Bills/index';
+import { setActiveTab } from '../store/billsSlice';
+import type { RootState } from '../store/store';
 
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
-
-const CustomTabPanel = (props: TabPanelProps) => {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
-    </div>
-  );
-};
-
-const a11yProps = (index: number) => ({
-  id: `simple-tab-${index}`,
-  'aria-controls': `simple-tabpanel-${index}`,
+const tabProps = (index: number) => ({
+  id: `tab-${index}`,
+  'aria-controls': `tabpanel-${index}`,
 });
 
-const ListingTabs = () => {
-  const [value, setValue] = React.useState(0);
+interface ListingTabsProps {
+  totalFavs: number;
+}
+
+const ListingTabs = ({ totalFavs }: ListingTabsProps) => {
+  const dispatch = useDispatch();
+  const activeTab = useSelector((state: RootState) => state.bills.activeTab);
 
   const handleChange = (_: unknown, newValue: number) => {
-    setValue(newValue);
+    dispatch(setActiveTab(newValue));
   };
 
   return (
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="tabs"
-          TabIndicatorProps={{
-            style: {
-              backgroundColor: '#006400',
-            },
-          }}
-        >
+        <Tabs value={activeTab} onChange={handleChange} aria-label="tabs">
           <Tab
             label="All Bills"
-            {...a11yProps(0)}
+            {...tabProps(0)}
             sx={{
               color: '#006400',
               textTransform: 'none',
@@ -62,8 +37,8 @@ const ListingTabs = () => {
             }}
           />
           <Tab
-            label="Favorites (0)"
-            {...a11yProps(1)}
+            label={`Favorites (${totalFavs})`}
+            {...tabProps(1)}
             sx={{
               color: '#006400',
               textTransform: 'none',
@@ -75,12 +50,6 @@ const ListingTabs = () => {
           />
         </Tabs>
       </Box>
-      <CustomTabPanel value={value} index={0}>
-        <BillsContainer />
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-        <BillsContainer />
-      </CustomTabPanel>
     </Box>
   );
 };
