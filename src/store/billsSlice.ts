@@ -88,12 +88,6 @@ const billsSlice = createSlice({
   },
 });
 
-export const { 
-    setPage,
-    setRowsPerPage,
-    setLanguage,
-    setBills, 
-    setActiveTab
-} = billsSlice.actions;
+export const { setPage, setRowsPerPage, setLanguage, setBills, setActiveTab } = billsSlice.actions;
 
 export default billsSlice.reducer;

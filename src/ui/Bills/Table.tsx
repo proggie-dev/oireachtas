@@ -32,11 +32,15 @@ const BillsTable = () => {
   const [selected, setSelected] = useState<readonly number[]>([]);
 
   const toggleFavoriteMark = (val: number) => {
-    let newArr = [...bills];
+    let newArr = bills.map((bill) => ({ ...bill }));
     let index = newArr.findIndex((x) => Number(x.number) === val);
-    newArr[index].isFavorite = !newArr[index].isFavorite;
+
+    if (index !== -1) newArr[index].isFavorite = !newArr[index].isFavorite;
 
     dispatch(setBills(newArr));
+    /* There should be a API call for updating the information on the server, but since
+    it is asked to have a mocked functionality (POST is nonexistant?), we now only update
+    the local state */
   };
 
   const handleRequestSort = (_: unknown, property: keyof BillDetail) => {
@@ -69,8 +73,8 @@ const BillsTable = () => {
   };
 
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-dispatch(setRowsPerPage(parseInt(event.target.value, 10)));
-  dispatch(setPage(0)); // Reset page on limit change
+    dispatch(setRowsPerPage(parseInt(event.target.value, 10)));
+    dispatch(setPage(0));
   };
 
   const visibleRows = useMemo(
@@ -82,7 +86,7 @@ dispatch(setRowsPerPage(parseInt(event.target.value, 10)));
     <Box sx={{ width: '100%' }}>
       <Paper elevation={0} sx={{ width: '100%', mb: 2, mt: 2 }}>
         <TableContainer sx={{ background: 'none' }}>
-          <Table className="bills-table" aria-labelledby="tableTitle" sx={{ tableLayout: 'fixed' }}>
+          <Table className='bills-table' aria-labelledby='tableTitle' sx={{ tableLayout: 'fixed' }}>
             <colgroup>
               <col style={{ width: '12.5%' }} />
               <col style={{ width: '12.5%' }} />
@@ -94,7 +98,7 @@ dispatch(setRowsPerPage(parseInt(event.target.value, 10)));
               order={order}
               orderBy={orderBy}
               rowCount={bills.length}
-              className="bills-table"
+              className='bills-table'
               onRequestSort={handleRequestSort}
             />
             <TableBody>
@@ -106,7 +110,7 @@ dispatch(setRowsPerPage(parseInt(event.target.value, 10)));
                   <TableRow
                     hover
                     onClick={(event) => handleClick(event, Number(row.number))}
-                    role="checkbox"
+                    role='checkbox'
                     aria-checked={isItemSelected}
                     tabIndex={-1}
                     key={`${row.number}-${index}`}
@@ -115,25 +119,19 @@ dispatch(setRowsPerPage(parseInt(event.target.value, 10)));
                       cursor: 'pointer',
                     }}
                   >
-                    <TableCell id={labelId} scope="row" align="left">
+                    <TableCell id={labelId} scope='row' align='left'>
                       {row.number}
                     </TableCell>
-                    <TableCell align="left">{row.type}</TableCell>
-                    <TableCell align="left">{row.status}</TableCell>
-                    <TableCell align="left">{row.sponsor}</TableCell>
-                    <TableCell align="center">
+                    <TableCell align='left'>{row.type}</TableCell>
+                    <TableCell align='left'>{row.status}</TableCell>
+                    <TableCell align='left'>{row.sponsor}</TableCell>
+                    <TableCell align='center'>
                       {row.isFavorite ? (
-                        <Button
-                          className="ja"
-                          onClick={() => toggleFavoriteMark(Number(row.number))}
-                        >
+                        <Button onClick={() => toggleFavoriteMark(Number(row.number))}>
                           <FavoriteIcon />
                         </Button>
                       ) : (
-                        <Button
-                          className="ja"
-                          onClick={() => toggleFavoriteMark(Number(row.number))}
-                        >
+                        <Button onClick={() => toggleFavoriteMark(Number(row.number))}>
                           <FavoriteBorderIcon />
                         </Button>
                       )}
@@ -147,7 +145,7 @@ dispatch(setRowsPerPage(parseInt(event.target.value, 10)));
 
         <TablePagination
           rowsPerPageOptions={[5, 10, 20]}
-          component="div"
+          component='div'
           count={total}
           rowsPerPage={rowsPerPage}
           page={page}

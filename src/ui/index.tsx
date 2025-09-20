@@ -10,29 +10,24 @@ const AppContainer = () => {
   const [totalFavsCount, setTotalFavsCount] = useState<number>(0);
   const dispatch = useDispatch<AppDispatch>();
   const matches = useMediaQuery('(max-width:667px)');
-  const { 
-    bills, 
-    loading, 
-    error, 
-    page, 
-    rowsPerPage, 
-    language 
-  } = useSelector((state: RootState) => state.bills);
+  const { bills, loading, error, page, rowsPerPage, language } = useSelector(
+    (state: RootState) => state.bills
+  );
 
   useEffect(() => {
     const favoriteCount = bills.filter((bill) => bill.isFavorite).length;
     setTotalFavsCount(favoriteCount);
   }, [bills]);
 
-useEffect(() => {
-  const offset = page * rowsPerPage;
-  const query = `?skip=${offset}&limit=${rowsPerPage}&lang=${language}`;
-  dispatch(fetchBills(query));
-}, [dispatch, page, rowsPerPage, language]);
+  useEffect(() => {
+    const offset = page * rowsPerPage;
+    const query = `?skip=${offset}&limit=${rowsPerPage}&lang=${language}`;
+    dispatch(fetchBills(query));
+  }, [dispatch, page, rowsPerPage, language]);
 
   return (
     <Box>
-      <Grid display="flex" alignItems="center" alignContent="center" justifyContent="center">
+      <Grid display='flex' alignItems='center' alignContent='center' justifyContent='center'>
         <Box>
           <h1 style={matches ? { fontSize: '28px', margin: 0 } : { fontSize: '38px', margin: 0 }}>
             BILLS LISTING
@@ -43,7 +38,7 @@ useEffect(() => {
           </p>
         </Box>
 
-        <img src="shamrock.png" width={matches ? '110' : '150'} />
+        <img src='shamrock.png' width={matches ? '110' : '150'} />
       </Grid>
 
       {loading && <p>Loading bills...</p>}

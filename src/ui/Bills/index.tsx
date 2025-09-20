@@ -6,11 +6,11 @@ const BillsContainer = () => {
 
   return (
     <>
-      <Grid display="flex" justifyContent="flex-end" mt={4} mb={4}>
+      <Grid display='flex' justifyContent='flex-end' mt={4} mb={4}>
         <TextField
-          id="basic-input"
-          label="Filter by bill type..."
-          variant="outlined"
+          id='basic-input'
+          label='Filter by bill type...'
+          variant='outlined'
           sx={{
             width: matches ? '100%' : '40%',
             '& label': {
