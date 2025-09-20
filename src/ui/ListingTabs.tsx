@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Box, Tab, Tabs } from '@mui/material';
 import { keyframes } from '@mui/system';
-import type { RootState } from '../store/store';
 import { setActiveTab } from '../store/billsSlice';
+import type { RootState } from '../store/store';
 
 const tabProps = (index: number) => ({
   id: `tab-${index}`,
@@ -28,6 +29,7 @@ const popFade = keyframes`
 
 const ListingTabs = ({ totalFavs }: ListingTabsProps) => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const { activeTab } = useSelector((state: RootState) => state.bills);
 
   const [animate, setAnimate] = useState<boolean>(false);
@@ -53,7 +55,7 @@ const ListingTabs = ({ totalFavs }: ListingTabsProps) => {
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={activeTab} onChange={handleChange} aria-label='tabs'>
           <Tab
-            label='All Bills'
+            label={t('allBills')}
             {...tabProps(0)}
             sx={{
               color: '#006400',
@@ -64,10 +66,11 @@ const ListingTabs = ({ totalFavs }: ListingTabsProps) => {
               },
             }}
           />
+
           <Tab
             label={
               <span>
-                Favorites (
+                {t('favorites')} (
                 <Box
                   component='span'
                   sx={{

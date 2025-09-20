@@ -1,5 +1,5 @@
 import AppContainer from './ui/index';
-import './App.css';
+import './styles/App.css';
 
 const App = () => <AppContainer />;
 

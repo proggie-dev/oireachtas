@@ -1,0 +1,50 @@
+/* Basic app CSS with media queries, lines 2-20 */
+#root {
+  margin: 0 auto;
+  padding: 4rem;
+  color: #006400;
+  font-family: 'Cormorant Garamond';
+}
+
+.no-margin {
+  margin: 0;
+}
+
+@media screen and (max-width: 900px) {
+  #root {
+    padding: 2rem;
+  }
+}
+
+@media screen and (max-width: 525px) {
+  #root {
+    padding: 4rem 0 2rem;
+  }
+}
+/* Basic app CSS end */
+
+/* Main component CSS, lines 23-41 */
+.languageButtons {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 10px;
+}
+
+.languageBtn {
+  font-weight: normal;
+  border-bottom: none;
+  transition: border-bottom 0.3s;
+  color: #006400 !important;
+  margin-right: 10px !important;
+}
+
+.languageBtn.active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.copyright-info-text {
+  margin: 0;
+  float: right;
+}
