@@ -1,5 +1,6 @@
 export interface BillDetail {
-  number: string;
+  id: string;
+  number: number;
   type: string;
   status: string;
   sponsor: string;

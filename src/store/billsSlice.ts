@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { BillDetail } from './../types/Bill';
+import { v4 as uuidv4 } from 'uuid';
 
 interface BillsState {
   bills: BillDetail[];
@@ -34,8 +35,8 @@ export const fetchBills = createAsyncThunk('bills/fetchBills', async (params: st
   }
   const data = await response.json();
 
-  const parsedData: BillDetail[] = data.results.map((item: any, index: number) => ({
-    id: index + 1,
+  const parsedData: BillDetail[] = data.results.map((item: any) => ({
+    id: uuidv4(),
     number: Number(item?.bill?.billNo),
     type: item?.bill?.billType,
     status: item?.bill?.status,
@@ -83,7 +84,7 @@ const billsSlice = createSlice({
       })
       .addCase(fetchBills.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message || 'Something went wrong';
+        state.error = action.error.message || 'Undefined error';
       });
   },
 });

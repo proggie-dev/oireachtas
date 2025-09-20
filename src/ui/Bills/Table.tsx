@@ -25,15 +25,18 @@ import type { BillDetail, BillsTableOrder } from './../../types/Bill';
 import './../../styles/Table.css';
 
 const BillsTable = () => {
-  const { bills, total, page, rowsPerPage } = useSelector((state: RootState) => state.bills);
+  const { activeTab, bills, total, page, rowsPerPage } = useSelector(
+    (state: RootState) => state.bills
+  );
   const dispatch = useDispatch<AppDispatch>();
   const [order, setOrder] = useState<BillsTableOrder>('asc');
   const [orderBy, setOrderBy] = useState<keyof BillDetail>('number');
   const [selected, setSelected] = useState<readonly number[]>([]);
+  const [favsTotal, setFavsTotal] = useState<number>(0);
 
-  const toggleFavoriteMark = (val: number) => {
+  const toggleFavoriteMark = (val: string) => {
     let newArr = bills.map((bill) => ({ ...bill }));
-    let index = newArr.findIndex((x) => Number(x.number) === val);
+    let index = newArr.findIndex((item) => item.id === val);
 
     if (index !== -1) newArr[index].isFavorite = !newArr[index].isFavorite;
 
@@ -42,6 +45,13 @@ const BillsTable = () => {
     it is asked to have a mocked functionality (POST is nonexistant?), we now only update
     the local state */
   };
+
+  const filteredBills = useMemo(() => {
+    let newArr = bills.filter((item) => item.isFavorite);
+    setFavsTotal(newArr.length);
+
+    return activeTab === 0 ? bills : bills.filter((item) => item.isFavorite);
+  }, [activeTab, bills]);
 
   const handleRequestSort = (_: unknown, property: keyof BillDetail) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -78,8 +88,8 @@ const BillsTable = () => {
   };
 
   const visibleRows = useMemo(
-    () => [...bills].sort(getComparator(order, orderBy)),
-    [order, orderBy, bills]
+    () => [...filteredBills].sort(getComparator(order, orderBy)),
+    [order, orderBy, filteredBills]
   );
 
   return (
@@ -103,17 +113,17 @@ const BillsTable = () => {
             />
             <TableBody>
               {visibleRows.map((row, index) => {
-                const isItemSelected = selected.includes(Number(row.number));
+                const isItemSelected = selected.includes(row.number);
                 const labelId = `enhanced-table-checkbox-${index}`;
 
                 return (
                   <TableRow
                     hover
-                    onClick={(event) => handleClick(event, Number(row.number))}
+                    onClick={(event) => handleClick(event, row.number)}
                     role='checkbox'
                     aria-checked={isItemSelected}
                     tabIndex={-1}
-                    key={`${row.number}-${index}`}
+                    key={row.id}
                     selected={false}
                     sx={{
                       cursor: 'pointer',
@@ -126,15 +136,9 @@ const BillsTable = () => {
                     <TableCell align='left'>{row.status}</TableCell>
                     <TableCell align='left'>{row.sponsor}</TableCell>
                     <TableCell align='center'>
-                      {row.isFavorite ? (
-                        <Button onClick={() => toggleFavoriteMark(Number(row.number))}>
-                          <FavoriteIcon />
-                        </Button>
-                      ) : (
-                        <Button onClick={() => toggleFavoriteMark(Number(row.number))}>
-                          <FavoriteBorderIcon />
-                        </Button>
-                      )}
+                      <Button onClick={() => toggleFavoriteMark(row.id)}>
+                        {row.isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                      </Button>
                     </TableCell>
                   </TableRow>
                 );
@@ -144,11 +148,11 @@ const BillsTable = () => {
         </TableContainer>
 
         <TablePagination
-          rowsPerPageOptions={[5, 10, 20]}
+          rowsPerPageOptions={[10, 20, 50]}
           component='div'
-          count={total}
-          rowsPerPage={rowsPerPage}
-          page={page}
+          count={activeTab === 0 ? total : favsTotal}
+          rowsPerPage={activeTab === 0 ? rowsPerPage : favsTotal}
+          page={activeTab === 0 ? page : 0}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />

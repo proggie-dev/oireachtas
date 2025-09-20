@@ -28,12 +28,12 @@ const popFade = keyframes`
 
 const ListingTabs = ({ totalFavs }: ListingTabsProps) => {
   const dispatch = useDispatch();
-  const activeTab = useSelector((state: RootState) => state.bills.activeTab);
+  const { activeTab } = useSelector((state: RootState) => state.bills);
 
   const [animate, setAnimate] = useState<boolean>(false);
   const prevFavsRef = useRef<number>(totalFavs);
 
-  const handleChange = (_: unknown, newValue: number) => dispatch(setActiveTab(newValue));
+  const handleChange = (_: unknown, activeIndex: number) => dispatch(setActiveTab(activeIndex));
 
   useEffect(() => {
     if (totalFavs !== prevFavsRef.current) {
