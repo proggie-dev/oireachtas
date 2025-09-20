@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -19,18 +19,20 @@ import {
 
 import { setBills, setPage, setRowsPerPage } from './../../store/billsSlice';
 import TableHeader from './TableHeader';
-import { getComparator } from '../../utils/helpers';
 import type { AppDispatch, RootState } from './../../store/store';
-import type { BillDetail, BillsTableOrder } from './../../types/Bill';
+import { useTableData } from './../../hooks/useTableData';
+import type { BillDetail } from './../../types/Bill';
 import './../../styles/Table.css';
 
-const BillsTable = () => {
+interface BillsTableProps {
+  filteredBillsByInput: BillDetail[] | null;
+}
+
+const BillsTable = ({ filteredBillsByInput }: BillsTableProps) => {
   const { activeTab, bills, total, page, rowsPerPage } = useSelector(
     (state: RootState) => state.bills
   );
   const dispatch = useDispatch<AppDispatch>();
-  const [order, setOrder] = useState<BillsTableOrder>('asc');
-  const [orderBy, setOrderBy] = useState<keyof BillDetail>('number');
   const [selected, setSelected] = useState<readonly number[]>([]);
   const [favsTotal, setFavsTotal] = useState<number>(0);
 
@@ -39,7 +41,6 @@ const BillsTable = () => {
     let index = newArr.findIndex((item) => item.id === val);
 
     if (index !== -1) newArr[index].isFavorite = !newArr[index].isFavorite;
-
     dispatch(setBills(newArr));
     /* There should be a API call for updating the information on the server, but since
     it is asked to have a mocked functionality (POST is nonexistant?), we now only update
@@ -47,17 +48,21 @@ const BillsTable = () => {
   };
 
   const filteredBills = useMemo(() => {
-    let newArr = bills.filter((item) => item.isFavorite);
-    setFavsTotal(newArr.length);
+    if (filteredBillsByInput) return filteredBillsByInput;
 
-    return activeTab === 0 ? bills : bills.filter((item) => item.isFavorite);
-  }, [activeTab, bills]);
+    if (activeTab === 1) {
+      return bills.filter((item) => item.isFavorite);
+    }
 
-  const handleRequestSort = (_: unknown, property: keyof BillDetail) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
-  };
+    return bills;
+  }, [activeTab, bills, filteredBillsByInput]);
+
+  const {
+    order,
+    orderBy,
+    handleRequestSort,
+    sortedRows: visibleRows,
+  } = useTableData(filteredBills);
 
   const handleClick = (_: React.MouseEvent<unknown>, id: number) => {
     const selectedIndex = selected.indexOf(id);
@@ -87,10 +92,26 @@ const BillsTable = () => {
     dispatch(setPage(0));
   };
 
-  const visibleRows = useMemo(
-    () => [...filteredBills].sort(getComparator(order, orderBy)),
-    [order, orderBy, filteredBills]
-  );
+  const returnTotalCount = () => {
+    if (filteredBillsByInput) return filteredBillsByInput?.length;
+    else if (activeTab === 0) return total;
+
+    return favsTotal;
+  };
+
+  const returnTotalRowsPerPage = () => {
+    if (filteredBillsByInput) return filteredBillsByInput?.length;
+    else if (activeTab === 0) return rowsPerPage;
+
+    return favsTotal;
+  };
+
+  useEffect(() => {
+    if (activeTab === 1) {
+      const favs = bills.filter((item) => item.isFavorite);
+      setFavsTotal(favs.length);
+    }
+  }, [activeTab, bills]);
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -104,6 +125,7 @@ const BillsTable = () => {
               <col style={{ width: '50%' }} />
               <col style={{ width: '12.5%' }} />
             </colgroup>
+
             <TableHeader
               order={order}
               orderBy={orderBy}
@@ -111,6 +133,7 @@ const BillsTable = () => {
               className='bills-table'
               onRequestSort={handleRequestSort}
             />
+
             <TableBody>
               {visibleRows.map((row, index) => {
                 const isItemSelected = selected.includes(row.number);
@@ -129,7 +152,7 @@ const BillsTable = () => {
                       cursor: 'pointer',
                     }}
                   >
-                    <TableCell id={labelId} scope='row' align='left'>
+                    <TableCell id={labelId} scope='row' align='center'>
                       {row.number}
                     </TableCell>
                     <TableCell align='left'>{row.type}</TableCell>
@@ -150,8 +173,8 @@ const BillsTable = () => {
         <TablePagination
           rowsPerPageOptions={[10, 20, 50]}
           component='div'
-          count={activeTab === 0 ? total : favsTotal}
-          rowsPerPage={activeTab === 0 ? rowsPerPage : favsTotal}
+          count={returnTotalCount()}
+          rowsPerPage={returnTotalRowsPerPage()}
           page={activeTab === 0 ? page : 0}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}

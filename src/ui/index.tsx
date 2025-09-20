@@ -6,7 +6,9 @@ import i18n from 'i18next';
 import type { RootState, AppDispatch } from '../store/store';
 import { fetchBills, setLanguage } from '../store/billsSlice';
 import ListingTabs from './ListingTabs';
+import ScrollToTopButton from './ScrollToTop';
 import BillsContainer from './Bills/index';
+import LinearProgress from '@mui/material/LinearProgress';
 import './../styles/App.css';
 
 const AppContainer = () => {
@@ -59,7 +61,7 @@ const AppContainer = () => {
       <Grid display='flex' alignItems='center' alignContent='center' justifyContent='center'>
         <Box>
           <h1 className='no-margin' style={matches ? { fontSize: '28px' } : { fontSize: '38px' }}>
-            {t('appTitle')}
+            {t('appTitle').toUpperCase()}
           </h1>
 
           <p className='copyright-info-text'>
@@ -70,7 +72,7 @@ const AppContainer = () => {
         <img src='shamrock.png' width={matches ? '110' : '150'} />
       </Grid>
 
-      {loading && <p>{t('loadingBills')}...</p>}
+      {loading && <LinearProgress color='success' />}
 
       {error && (
         <p>
@@ -84,6 +86,10 @@ const AppContainer = () => {
           <BillsContainer />
         </>
       )}
+
+      <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+        <ScrollToTopButton />
+      </Box>
     </Box>
   );
 };

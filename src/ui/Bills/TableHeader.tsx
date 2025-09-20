@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box, TableCell, TableHead, TableRow, TableSortLabel } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
 import type { BillDetail, BillsTableOrder } from './../../types/Bill';
@@ -17,36 +18,37 @@ interface BillsTableHeaderProps {
   onRequestSort: (event: React.MouseEvent<unknown>, property: keyof BillDetail) => void;
 }
 
-const headCells: readonly HeadCell[] = [
-  {
-    id: 'number',
-    numeric: false,
-    label: 'NUMBER',
-  },
-  {
-    id: 'type',
-    numeric: true,
-    label: 'TYPE',
-  },
-  {
-    id: 'status',
-    numeric: true,
-    label: 'STATUS',
-  },
-  {
-    id: 'sponsor',
-    numeric: true,
-    label: 'SPONSOR',
-  },
-  {
-    id: 'isFavorite',
-    numeric: true,
-    label: 'FAVORITE',
-  },
-];
-
 const BillsTableHeader = (props: BillsTableHeaderProps) => {
   const { order, orderBy, onRequestSort } = props;
+  const { t } = useTranslation();
+
+  const headCells: readonly HeadCell[] = [
+    {
+      id: 'number',
+      numeric: false,
+      label: t('number').toUpperCase(),
+    },
+    {
+      id: 'type',
+      numeric: true,
+      label: t('type').toUpperCase(),
+    },
+    {
+      id: 'status',
+      numeric: true,
+      label: t('status').toUpperCase(),
+    },
+    {
+      id: 'sponsor',
+      numeric: true,
+      label: t('sponsor').toUpperCase(),
+    },
+    {
+      id: 'isFavorite',
+      numeric: true,
+      label: t('favorite').toUpperCase(),
+    },
+  ];
 
   const createSortHandler = (property: keyof BillDetail) => (event: React.MouseEvent<unknown>) => {
     onRequestSort(event, property);
@@ -59,7 +61,7 @@ const BillsTableHeader = (props: BillsTableHeaderProps) => {
           <TableCell
             key={headCell.id}
             width={headCell.id === 'sponsor' ? '60%' : '10%'}
-            align={headCell.id === 'isFavorite' ? 'center' : 'left'}
+            align={headCell.id === 'isFavorite' || headCell.id === 'number' ? 'center' : 'left'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel

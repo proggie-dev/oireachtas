@@ -1,8 +1,13 @@
 {
-  "appTitle": "BILLS LISTING",
+  "appTitle": "bills listing",
   "by": "by",
-  "loadingBills": "Loading bills",
   "allBills": "All Bills",
   "favorites": "Favorites",
-  "error": "Error"
+  "error": "Error",
+  "filterBySponsor": "Filter by sponsor...",
+  "number": "number",
+  "type": "type",
+  "status": "status",
+  "sponsor": "sponsor",
+  "favorite": "favorite"
 }

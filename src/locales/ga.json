@@ -1,8 +1,13 @@
 {
-  "appTitle": "LIOSTÁIL BILLÍ",
+  "appTitle": "liostáil billí",
   "by": "ó",
-  "loadingBills": "Billí á lódáil",
   "allBills": "Gach Bille",
   "favorites": "Rogha na ndaoine",
-  "error": "Earráid"
+  "error": "Earráid",
+  "filterBySponsor": "Scag de réir urraitheora...",
+  "number": "uimhir",
+  "type": "cineál",
+  "status": "stádas",
+  "sponsor": "urraitheoir",
+  "favorite": "is fearr leat"
 }
