@@ -23,7 +23,7 @@ import TableHeader from './TableHeader';
 import type { AppDispatch, RootState } from './../../store/store';
 import { useTableData } from './../../hooks/useTableData';
 import type { BillTitle, BillDetail } from './../../types/Bill';
-import './../../styles/Table.css';
+import './../../styles/Table.scss';
 
 interface BillsTableProps {
   filteredBillsByInput: BillDetail[] | null;

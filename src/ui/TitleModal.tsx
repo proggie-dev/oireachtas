@@ -1,7 +1,7 @@
 import { Backdrop, Box, Fade, Modal } from '@mui/material';
 import type { BillTitle } from '../types/Bill';
 import TitleContent from './TitleContent';
-import './../styles/App.css';
+import './../styles/App.scss';
 
 interface TitleModalProps {
   title: BillTitle;

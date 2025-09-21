@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import type { RootState } from './../store/store';
 import type { BillTitle } from '../types/Bill';
 import { sanitizeInput, formatYear } from '../utils/helpers';
-import './../styles/muiOverrides.css';
+import './../styles/muiOverrides.scss';
 
 interface TabPanelProps {
   children?: React.ReactNode;

@@ -1,0 +1,22 @@
+@use 'styles/variables' as *;
+
+.tab {
+  color: $primary-color !important;
+  text-transform: none !important;
+
+  &.Mui-selected {
+    color: $primary-color !important;
+    font-weight: bold !important;
+  }
+}
+
+#tabpanel-0 > div:first-child,
+#tabpanel-1 > div:first-child {
+  padding: 12px;
+}
+
+#tabpanel-0 p,
+#tabpanel-1 p {
+  font-size: 15px;
+  color: $primary-color;
+}

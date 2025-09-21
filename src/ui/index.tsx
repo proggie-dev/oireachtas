@@ -9,7 +9,7 @@ import ListingTabs from './ListingTabs';
 import ScrollToTopButton from './ScrollToTop';
 import BillsContainer from './Bills/index';
 import LinearProgress from '@mui/material/LinearProgress';
-import './../styles/App.css';
+import './../styles/App.scss';
 
 const AppContainer = () => {
   const dispatch = useDispatch<AppDispatch>();

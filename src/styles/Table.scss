@@ -1,0 +1,24 @@
+@use 'styles/variables' as *;
+
+.bills-table {
+  td {
+    border: 2px solid #006400;
+    color: #006400;
+  }
+  th {
+    background-color: #006400;
+    color: white;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    border: 2px solid #006400;
+  }
+
+  .bills-table tr:hover td {
+    background-color: #e6f2e6;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+  }
+  .MuiSvgIcon-root {
+    color: #ff8c00;
+  }
+}

@@ -5,7 +5,7 @@ import { Box, Tab, Tabs } from '@mui/material';
 import { keyframes } from '@mui/system';
 import { setActiveTab } from '../store/billsSlice';
 import type { RootState } from '../store/store';
-import './../styles/muiOverrides.css';
+import './../styles/muiOverrides.scss';
 
 const tabProps = (index: number) => ({
   id: `tab-${index}`,
