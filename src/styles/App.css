@@ -1,4 +1,4 @@
-/* Basic app CSS with media queries, lines 2-20 */
+/* Basic app CSS with media queries, lines 2-24 */
 #root {
   margin: 0 auto;
   padding: 4rem;
@@ -23,7 +23,7 @@
 }
 /* Basic app CSS end */
 
-/* Main component CSS, lines 23-41 */
+/* Main component CSS, lines 23-67 */
 .languageButtons {
   position: absolute;
   top: 0;
@@ -65,3 +65,17 @@
   display: 'inline-block';
 }
 /* Main component CSS end */
+
+.title-modal {
+  font-family: Roboto, 'Helvetica Neue', Arial, 'sans-serif';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 225px;
+  border: 4px solid #e6f2e6;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 24px;
+}

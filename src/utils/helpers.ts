@@ -11,3 +11,6 @@ export const getComparator = <T>(
   order === 'desc'
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
+
+export const sanitizeInput = (val: string) => val.replace(/[^a-zA-Z)]+$/, '');
+export const formatYear = (val: string) => val.slice(-4);

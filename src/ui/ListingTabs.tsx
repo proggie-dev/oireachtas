@@ -5,6 +5,7 @@ import { Box, Tab, Tabs } from '@mui/material';
 import { keyframes } from '@mui/system';
 import { setActiveTab } from '../store/billsSlice';
 import type { RootState } from '../store/store';
+import './../styles/muiOverrides.css';
 
 const tabProps = (index: number) => ({
   id: `tab-${index}`,
@@ -54,18 +55,7 @@ const ListingTabs = ({ totalFavs }: ListingTabsProps) => {
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={activeTab} onChange={handleChange} aria-label='tabs'>
-          <Tab
-            label={t('allBills')}
-            {...tabProps(0)}
-            sx={{
-              color: '#006400',
-              textTransform: 'none',
-              '&.Mui-selected': {
-                color: '#006400',
-                fontWeight: 'bold',
-              },
-            }}
-          />
+          <Tab label={t('allBills')} {...tabProps(0)} className='tab' />
 
           <Tab
             label={
@@ -84,14 +74,7 @@ const ListingTabs = ({ totalFavs }: ListingTabsProps) => {
               </span>
             }
             {...tabProps(1)}
-            sx={{
-              color: '#006400',
-              textTransform: 'none',
-              '&.Mui-selected': {
-                color: '#006400',
-                fontWeight: 'bold',
-              },
-            }}
+            className='tab'
           />
         </Tabs>
       </Box>

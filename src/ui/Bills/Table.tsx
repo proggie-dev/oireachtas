@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import TitleModal from '../TitleModal';
 
 import {
   Box,
@@ -21,7 +22,7 @@ import { setBills, setPage, setRowsPerPage } from './../../store/billsSlice';
 import TableHeader from './TableHeader';
 import type { AppDispatch, RootState } from './../../store/store';
 import { useTableData } from './../../hooks/useTableData';
-import type { BillDetail } from './../../types/Bill';
+import type { BillTitle, BillDetail } from './../../types/Bill';
 import './../../styles/Table.css';
 
 interface BillsTableProps {
@@ -33,8 +34,11 @@ const BillsTable = ({ filteredBillsByInput }: BillsTableProps) => {
     (state: RootState) => state.bills
   );
   const dispatch = useDispatch<AppDispatch>();
-  const [selected, setSelected] = useState<readonly number[]>([]);
   const [favsTotal, setFavsTotal] = useState<number>(0);
+  const [title, setTitle] = useState<BillTitle | null>(null);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleModalVisibility = (value: boolean) => setIsOpen(value);
 
   const toggleFavoriteMark = (val: string) => {
     let newArr = bills.map((bill) => ({ ...bill }));
@@ -64,24 +68,17 @@ const BillsTable = ({ filteredBillsByInput }: BillsTableProps) => {
     sortedRows: visibleRows,
   } = useTableData(filteredBills);
 
-  const handleClick = (_: React.MouseEvent<unknown>, id: number) => {
-    const selectedIndex = selected.indexOf(id);
-    let newSelected: readonly number[] = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-    setSelected(newSelected);
+  const handleClick = (_: React.MouseEvent<unknown>, title: BillTitle) => {
+    setTitle({
+      enTitle: title.enTitle,
+      gaTitle: title.gaTitle,
+    });
   };
+
+  useEffect(() => {
+    if (!title) setIsOpen(false);
+    else setIsOpen(true);
+  }, [title]);
 
   const handleChangePage = (_: unknown, newPage: number) => {
     dispatch(setPage(newPage));
@@ -136,18 +133,15 @@ const BillsTable = ({ filteredBillsByInput }: BillsTableProps) => {
 
             <TableBody>
               {visibleRows.map((row, index) => {
-                const isItemSelected = selected.includes(row.number);
                 const labelId = `enhanced-table-checkbox-${index}`;
 
                 return (
                   <TableRow
                     hover
-                    onClick={(event) => handleClick(event, row.number)}
+                    onClick={(event) => handleClick(event, row.title)}
                     role='checkbox'
-                    aria-checked={isItemSelected}
                     tabIndex={-1}
                     key={row.id}
-                    selected={false}
                     sx={{
                       cursor: 'pointer',
                     }}
@@ -158,7 +152,7 @@ const BillsTable = ({ filteredBillsByInput }: BillsTableProps) => {
                     <TableCell align='left'>{row.type}</TableCell>
                     <TableCell align='left'>{row.status}</TableCell>
                     <TableCell align='left'>{row.sponsor}</TableCell>
-                    <TableCell align='center'>
+                    <TableCell align='center' onClick={(event) => event.stopPropagation()}>
                       <Button onClick={() => toggleFavoriteMark(row.id)}>
                         {row.isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                       </Button>
@@ -179,6 +173,10 @@ const BillsTable = ({ filteredBillsByInput }: BillsTableProps) => {
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
+
+        {title && (
+          <TitleModal title={title} isOpen={isOpen} toggleModalVisibility={toggleModalVisibility} />
+        )}
       </Paper>
     </Box>
   );

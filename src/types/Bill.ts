@@ -1,3 +1,8 @@
+export interface BillTitle {
+  enTitle: string;
+  gaTitle: string;
+}
+
 export interface BillDetail {
   id: string;
   number: number;
@@ -5,10 +10,7 @@ export interface BillDetail {
   status: string;
   sponsor: string;
   isFavorite: boolean;
-  title: {
-    en: string;
-    ga: string;
-  };
+  title: BillTitle;
 }
 
 export type BillsTableOrder = 'asc' | 'desc';

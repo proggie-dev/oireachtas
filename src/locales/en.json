@@ -9,5 +9,7 @@
   "type": "type",
   "status": "status",
   "sponsor": "sponsor",
-  "favorite": "favorite"
+  "favorite": "favorite",
+  "billName": "name",
+  "billYear": "year"
 }

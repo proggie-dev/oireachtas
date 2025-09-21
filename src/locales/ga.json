@@ -9,5 +9,7 @@
   "type": "cineál",
   "status": "stádas",
   "sponsor": "urraitheoir",
-  "favorite": "is fearr leat"
+  "favorite": "is fearr leat",
+  "billName": "ainm",
+  "billYear": "bhliain"
 }

@@ -43,8 +43,8 @@ export const fetchBills = createAsyncThunk('bills/fetchBills', async (params: st
     sponsor: item?.bill?.sponsors?.[0]?.sponsor?.as?.showAs || 'N/A',
     isFavorite: false,
     title: {
-      en: item?.bill?.shortTitleEn,
-      ga: item?.bill?.shortTitleGa,
+      enTitle: item?.bill?.shortTitleEn,
+      gaTitle: item?.bill?.shortTitleGa,
     },
   }));
 
