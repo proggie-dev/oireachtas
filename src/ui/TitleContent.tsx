@@ -82,25 +82,29 @@ const TitleContent = ({ title }: TitleContentProps) => {
 
       <CustomTabPanel value={value} index={0}>
         <p>
-          {t('billName')}: <br />
-          {language === 'en' ? sanitizeInput(title.enTitle) : sanitizeInput(title.gaTitle)}
+          {t('billName')}:
+          <br />
+          <b>{language === 'en' ? sanitizeInput(title.enTitle) : sanitizeInput(title.gaTitle)}</b>
         </p>
 
         <p>
-          {t('billYear')}: <br />
-          {language === 'en' ? formatYear(title.enTitle) : formatYear(title.gaTitle)}
+          {t('billYear')}:
+          <br />
+          <b>{language === 'en' ? formatYear(title.enTitle) : formatYear(title.gaTitle)}</b>
         </p>
       </CustomTabPanel>
 
       <CustomTabPanel value={value} index={1}>
         <p>
-          {t('billName')}: <br />
-          {language === 'en' ? sanitizeInput(title.gaTitle) : sanitizeInput(title.enTitle)}
+          {t('billName')}:
+          <br />
+          <b>{language === 'en' ? sanitizeInput(title.gaTitle) : sanitizeInput(title.enTitle)}</b>
         </p>
 
         <p>
-          {t('billYear')}: <br />
-          {language === 'en' ? formatYear(title.gaTitle) : formatYear(title.enTitle)}
+          {t('billYear')}:
+          <br />
+          <b>{language === 'en' ? formatYear(title.gaTitle) : formatYear(title.enTitle)}</b>
         </p>
       </CustomTabPanel>
     </Box>

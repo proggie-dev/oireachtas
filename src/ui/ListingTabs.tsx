@@ -53,8 +53,17 @@ const ListingTabs = ({ totalFavs }: ListingTabsProps) => {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={activeTab} onChange={handleChange} aria-label='tabs'>
+      <Box sx={{ borderBottom: 1, borderColor: '#e6f2e6' }}>
+        <Tabs
+          value={activeTab}
+          onChange={handleChange}
+          aria-label='tabs'
+          TabIndicatorProps={{
+            style: {
+              backgroundColor: '#006400',
+            },
+          }}
+        >
           <Tab label={t('allBills')} {...tabProps(0)} className='tab' />
 
           <Tab
