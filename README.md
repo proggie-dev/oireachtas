@@ -10,7 +10,7 @@ The application is bootstrapped with [Vite](https://vitejs.dev/) and uses severa
 - [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) for unit testing  
 - [i18next](https://www.i18next.com/) for internationalization  
 
-👉 **Live Demo:** [View here](https://https://oireachtas-khaki.vercel.app/)
+👉 **Live Demo:** [View here](https://oireachtas-khaki.vercel.app/)
 
 ---
 
