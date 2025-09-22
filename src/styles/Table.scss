@@ -1,6 +1,9 @@
 @use 'styles/variables' as *;
 
 .bills-table {
+  table-layout: fxed;
+  min-width: 750px;
+
   td {
     border: 2px solid $primary-color;
     color: $primary-color;

@@ -114,7 +114,7 @@ const BillsTable = ({ filteredBillsByInput }: BillsTableProps) => {
     <Box sx={{ width: '100%' }}>
       <Paper elevation={0} sx={{ width: '100%', mb: 2, mt: 2 }}>
         <TableContainer sx={{ background: 'none' }}>
-          <Table className='bills-table' aria-labelledby='tableTitle' sx={{ tableLayout: 'fixed' }}>
+          <Table className='bills-table'>
             <colgroup>
               <col style={{ width: '12.5%' }} />
               <col style={{ width: '12.5%' }} />
@@ -132,40 +132,34 @@ const BillsTable = ({ filteredBillsByInput }: BillsTableProps) => {
             />
 
             <TableBody>
-              {visibleRows.map(row => (
+              {visibleRows.map((row) => (
                 <TableRow
-                    hover
-                    onClick={(event) => handleClick(event, row.title)}
-                    role='checkbox'
-                    tabIndex={-1}
-                    key={row.id}
-                    sx={{
-                      cursor: 'pointer',
-                    }}
-                  >
-                    <TableCell scope='row' align='center'>
-                      {row.number}
-                    </TableCell>
+                  hover
+                  onClick={(event) => handleClick(event, row.title)}
+                  role='checkbox'
+                  tabIndex={-1}
+                  key={row.id}
+                  sx={{
+                    cursor: 'pointer',
+                  }}
+                >
+                  <TableCell scope='row' align='center'>
+                    {row.number}
+                  </TableCell>
 
-                    <TableCell align='left'>
-                      {row.type}
-                    </TableCell>
+                  <TableCell align='left'>{row.type}</TableCell>
 
-                    <TableCell align='left'>
-                      {row.status}
-                    </TableCell>
+                  <TableCell align='left'>{row.status}</TableCell>
 
-                    <TableCell align='left'>
-                      {row.sponsor}
-                    </TableCell>
+                  <TableCell align='left'>{row.sponsor}</TableCell>
 
-                    <TableCell align='center' onClick={(event) => event.stopPropagation()}>
-                      <Button onClick={() => toggleFavoriteMark(row.id)}>
-                        {row.isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                  <TableCell align='center' onClick={(event) => event.stopPropagation()}>
+                    <Button onClick={() => toggleFavoriteMark(row.id)}>
+                      {row.isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         </TableContainer>
