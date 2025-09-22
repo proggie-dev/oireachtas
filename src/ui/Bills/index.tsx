@@ -36,7 +36,7 @@ const BillsContainer = () => {
           InputProps={{
             endAdornment: value && (
               <InputAdornment position='end'>
-                <IconButton onClick={handleClear} edge='end'>
+                <IconButton aria-label='clear input' onClick={handleClear} edge='end'>
                   <CloseIcon />
                 </IconButton>
               </InputAdornment>

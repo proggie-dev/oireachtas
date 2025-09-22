@@ -25,6 +25,17 @@ const initialState: BillsState = {
   error: null,
 };
 
+interface ApiBill {
+  bill?: {
+    billNo?: string | number;
+    billType?: string;
+    status?: string;
+    sponsors?: Array<{ sponsor?: { as?: { showAs?: string } } }>;
+    shortTitleEn?: string;
+    shortTitleGa?: string;
+  };
+}
+
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 const version = import.meta.env.VITE_API_VERSION;
 
@@ -35,7 +46,8 @@ export const fetchBills = createAsyncThunk('bills/fetchBills', async (params: st
   }
   const data = await response.json();
 
-  const parsedData: BillDetail[] = data.results.map((item: any) => ({
+  // @ts-expect-error: complex API, ignoring for now
+  const parsedData: BillDetail[] = (data.results as ApiBill[]).map((item) => ({
     id: uuidv4(),
     number: Number(item?.bill?.billNo),
     type: item?.bill?.billType,

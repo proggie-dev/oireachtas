@@ -43,7 +43,7 @@ const TitleContent = ({ title }: TitleContentProps) => {
   const { t } = useTranslation();
   const [value, setValue] = useState(0);
 
-  const handleChange = (_: any, newValue: number) => setValue(newValue);
+  const handleChange = (_: unknown, newValue: number) => setValue(newValue);
 
   return (
     <Box sx={{ width: '100%', padding: 0 }}>

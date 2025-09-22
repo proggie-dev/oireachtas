@@ -41,8 +41,8 @@ const BillsTable = ({ filteredBillsByInput }: BillsTableProps) => {
   const toggleModalVisibility = (value: boolean) => setIsOpen(value);
 
   const toggleFavoriteMark = (val: string) => {
-    let newArr = bills.map((bill) => ({ ...bill }));
-    let index = newArr.findIndex((item) => item.id === val);
+    const newArr = bills.map((bill) => ({ ...bill }));
+    const index = newArr.findIndex((item) => item.id === val);
 
     if (index !== -1) newArr[index].isFavorite = !newArr[index].isFavorite;
     dispatch(setBills(newArr));
@@ -169,7 +169,7 @@ const BillsTable = ({ filteredBillsByInput }: BillsTableProps) => {
           component='div'
           count={returnTotalCount()}
           rowsPerPage={returnTotalRowsPerPage()}
-          page={activeTab === 0 ? page : 0}
+          page={filteredBillsByInput || activeTab === 1 ? 0 : page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
