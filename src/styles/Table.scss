@@ -2,19 +2,19 @@
 
 .bills-table {
   td {
-    border: 2px solid #006400;
-    color: #006400;
+    border: 2px solid $primary-color;
+    color: $primary-color;
   }
   th {
-    background-color: #006400;
+    background-color: $primary-color;
     color: white;
     font-weight: bold;
     letter-spacing: 0.1em;
-    border: 2px solid #006400;
+    border: 2px solid $primary-color;
   }
 
   .bills-table tr:hover td {
-    background-color: #e6f2e6;
+    background-color: $secondary-color;
     cursor: pointer;
     transition: background 0.2s ease-in-out;
   }

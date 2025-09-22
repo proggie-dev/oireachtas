@@ -132,11 +132,8 @@ const BillsTable = ({ filteredBillsByInput }: BillsTableProps) => {
             />
 
             <TableBody>
-              {visibleRows.map((row, index) => {
-                const labelId = `enhanced-table-checkbox-${index}`;
-
-                return (
-                  <TableRow
+              {visibleRows.map(row => (
+                <TableRow
                     hover
                     onClick={(event) => handleClick(event, row.title)}
                     role='checkbox'
@@ -146,20 +143,29 @@ const BillsTable = ({ filteredBillsByInput }: BillsTableProps) => {
                       cursor: 'pointer',
                     }}
                   >
-                    <TableCell id={labelId} scope='row' align='center'>
+                    <TableCell scope='row' align='center'>
                       {row.number}
                     </TableCell>
-                    <TableCell align='left'>{row.type}</TableCell>
-                    <TableCell align='left'>{row.status}</TableCell>
-                    <TableCell align='left'>{row.sponsor}</TableCell>
+
+                    <TableCell align='left'>
+                      {row.type}
+                    </TableCell>
+
+                    <TableCell align='left'>
+                      {row.status}
+                    </TableCell>
+
+                    <TableCell align='left'>
+                      {row.sponsor}
+                    </TableCell>
+
                     <TableCell align='center' onClick={(event) => event.stopPropagation()}>
                       <Button onClick={() => toggleFavoriteMark(row.id)}>
                         {row.isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                       </Button>
                     </TableCell>
                   </TableRow>
-                );
-              })}
+                ))}
             </TableBody>
           </Table>
         </TableContainer>

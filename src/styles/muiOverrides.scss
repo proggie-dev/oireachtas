@@ -39,29 +39,29 @@
   }
 
   label {
-    color: #006400;
+    color: $primary-color;
   }
 
   label.Mui-focused,
   label.MuiInputLabel-shrink {
-    color: #006400;
+    color: $primary-color;
   }
 
   &:hover label {
-    color: #006400;
+    color: $primary-color;
   }
 
   .MuiOutlinedInput-root {
     fieldset {
-      border-color: #006400;
+      border-color: $primary-color;
     }
 
     &:hover fieldset {
-      border-color: #006400;
+      border-color: $primary-color;
     }
 
     &.Mui-focused fieldset {
-      border-color: #006400;
+      border-color: $primary-color;
     }
   }
 }
