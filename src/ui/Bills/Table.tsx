@@ -113,16 +113,8 @@ const BillsTable = ({ filteredBillsByInput }: BillsTableProps) => {
   return (
     <Box sx={{ width: '100%' }}>
       <Paper elevation={0} sx={{ width: '100%', mb: 2, mt: 2 }}>
-        <TableContainer sx={{ background: 'none' }}>
+        <TableContainer sx={{ background: 'none', paddingBottom: '8px' }}>
           <Table className='bills-table'>
-            <colgroup>
-              <col style={{ width: '12.5%' }} />
-              <col style={{ width: '12.5%' }} />
-              <col style={{ width: '12.5%' }} />
-              <col style={{ width: '50%' }} />
-              <col style={{ width: '12.5%' }} />
-            </colgroup>
-
             <TableHeader
               order={order}
               orderBy={orderBy}

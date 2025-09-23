@@ -3,7 +3,7 @@
 /* Basic app CSS with media queries, lines 2-24 */
 #root {
   margin: 0 auto;
-  padding: 4rem;
+  padding: 8rem;
   color: $primary-color;
   font-family: $main-font;
 }
@@ -12,9 +12,21 @@
   margin: 0;
 }
 
+@media screen and (max-width: 1500px) {
+  #root {
+    padding: 4rem;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  #root {
+    padding: 2.5rem;
+  }
+}
+
 @media screen and (max-width: 900px) {
   #root {
-    padding: 2rem;
+    padding: 1rem;
   }
 }
 
@@ -69,13 +81,14 @@
 /* Main component CSS end */
 
 .title-modal {
-  font-family: Roboto, 'Helvetica Neue', Arial, 'sans-serif';
+  font-family: $main-font;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 400px;
-  height: 225px;
+  min-width: 390px;
+  max-width: 440px;
+  height: 240px;
   border: 2px solid $primary-color;
   border-radius: 8px;
   background: #fff;

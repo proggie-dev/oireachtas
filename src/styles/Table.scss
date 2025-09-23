@@ -1,27 +1,67 @@
 @use 'styles/variables' as *;
 
 .bills-table {
-  table-layout: fxed;
   min-width: 750px;
 
-  td {
-    border: 2px solid $primary-color;
-    color: $primary-color;
-  }
+  td,
   th {
-    background-color: $primary-color;
-    color: white;
-    font-weight: bold;
-    letter-spacing: 0.1em;
     border: 2px solid $primary-color;
+    font-family: $main-font;
+    font-size: 17px;
   }
 
-  .bills-table tr:hover td {
+  td {
+    color: $primary-color;
+  }
+
+  th {
+    border-left: 2px solid white;
+    border-right: 2px solid white;
+    //height: 50px;
+
+    background-color: $primary-color;
+    color: white;
+    font-weight: 800;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+    letter-spacing: 0.05em;
+
+    &:first-child {
+      border-left-color: $primary-color !important;
+    }
+
+    &:last-child {
+      border-right-color: $primary-color !important;
+    }
+  }
+
+  tbody tr:hover td {
     background-color: $secondary-color;
     cursor: pointer;
     transition: background 0.2s ease-in-out;
   }
+
   .MuiSvgIcon-root {
     color: #ff8c00;
+  }
+
+  @media screen and (max-width: 1200px) {
+    td,
+    th {
+      font-size: 15px;
+    }
+  }
+
+  @media screen and (max-width: 900px) {
+    td,
+    th {
+      border-width: 1px;
+    }
+  }
+
+  @media screen and (max-width: 525px) {
+    td,
+    th {
+      font-size: 14px;
+    }
   }
 }

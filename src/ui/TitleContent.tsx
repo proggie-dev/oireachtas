@@ -81,31 +81,47 @@ const TitleContent = ({ title }: TitleContentProps) => {
       </Box>
 
       <CustomTabPanel value={value} index={0}>
-        <p>
-          {t('billName')}:
-          <br />
-          <b>{language === 'en' ? sanitizeInput(title.enTitle) : sanitizeInput(title.gaTitle)}</b>
-        </p>
+        <Box>
+          <i>{t('billName')}:</i>
 
-        <p>
-          {t('billYear')}:
           <br />
-          <b>{language === 'en' ? formatYear(title.enTitle) : formatYear(title.gaTitle)}</b>
-        </p>
+
+          <blockquote style={{ margin: '10px' }}>
+            <b>{language === 'en' ? sanitizeInput(title.enTitle) : sanitizeInput(title.gaTitle)}</b>
+          </blockquote>
+        </Box>
+
+        <Box>
+          <i>{t('billYear')}:</i>
+
+          <br />
+
+          <blockquote style={{ margin: '10px' }}>
+            <b>{language === 'en' ? formatYear(title.enTitle) : formatYear(title.gaTitle)}</b>
+          </blockquote>
+        </Box>
       </CustomTabPanel>
 
       <CustomTabPanel value={value} index={1}>
-        <p>
-          {t('billName')}:
-          <br />
-          <b>{language === 'en' ? sanitizeInput(title.gaTitle) : sanitizeInput(title.enTitle)}</b>
-        </p>
+        <Box>
+          <i>{t('billName')}:</i>
 
-        <p>
-          {t('billYear')}:
           <br />
-          <b>{language === 'en' ? formatYear(title.gaTitle) : formatYear(title.enTitle)}</b>
-        </p>
+
+          <blockquote style={{ margin: '10px' }}>
+            <b>{language === 'en' ? sanitizeInput(title.gaTitle) : sanitizeInput(title.enTitle)}</b>
+          </blockquote>
+        </Box>
+
+        <Box>
+          <i>{t('billYear')}:</i>
+
+          <br />
+
+          <blockquote style={{ margin: '10px' }}>
+            <b>{language === 'en' ? formatYear(title.gaTitle) : formatYear(title.enTitle)}</b>
+          </blockquote>
+        </Box>
       </CustomTabPanel>
     </Box>
   );

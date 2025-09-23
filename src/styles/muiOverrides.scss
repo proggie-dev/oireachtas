@@ -1,68 +1,49 @@
 @use 'styles/variables' as *;
-
-// Tab CSS override, lines 3-24
 .tab {
   color: $primary-color !important;
-  text-transform: none !important;
+  text-transform: none;
 
   &.Mui-selected {
-    color: $primary-color !important;
-    font-weight: bold !important;
+    color: $primary-color;
+    font-weight: bold;
   }
 }
 
-#tabpanel-0 > div:first-child,
-#tabpanel-1 > div:first-child {
+[id^='tabpanel-'] > div:first-child {
   padding: 12px;
 }
 
-#tabpanel-0 p,
-#tabpanel-1 p {
-  font-size: 14px;
+[id^='tabpanel-'] p {
+  font-size: 16px;
   color: $primary-color;
 }
-// Tab CSS override end
 
-// Textfield CSS override, lines 26-60
+// --- Textfield CSS override ---
 .text-input {
   width: 30%;
+
   @media (max-width: 1100px) {
     width: 40%;
   }
-
   @media (max-width: 900px) {
     width: 50%;
   }
-
   @media (max-width: 600px) {
     width: 100%;
   }
 
-  label {
-    color: $primary-color;
-  }
-
+  label,
   label.Mui-focused,
-  label.MuiInputLabel-shrink {
-    color: $primary-color;
-  }
-
+  label.MuiInputLabel-shrink,
   &:hover label {
     color: $primary-color;
   }
 
   .MuiOutlinedInput-root {
-    fieldset {
-      border-color: $primary-color;
-    }
-
-    &:hover fieldset {
-      border-color: $primary-color;
-    }
-
+    fieldset,
+    &:hover fieldset,
     &.Mui-focused fieldset {
       border-color: $primary-color;
     }
   }
 }
-// Textfield CSS override end
